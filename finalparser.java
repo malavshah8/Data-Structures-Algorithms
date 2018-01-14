@@ -28,7 +28,7 @@ public class finalparser {
 		Document document;
 		try {
 			// Get Document object after parsing the html from given url.
-			document = Jsoup.connect("https://en.wikipedia.org/wiki/The_Commuter_(film)").get();
+			document = Jsoup.connect("https://en.wikipedia.org/wiki/Star_Wars_(film)").get();
 
 			String title = document.title(); // Get title
 			print("Title: " + title); // Print title.
@@ -36,11 +36,11 @@ public class finalparser {
 			Elements price = document.select("p"); // Get price
 			for (int i = 0; i < price.size(); i++) {
 				price1 = price.get(i).text().replaceAll("\\[.*?\\]", "");
-				String REGEX = "[a-zA-Z]{4,}\\s\\d{1,2},\\s\\d{4}";
+				String REGEX = "[a-zA-Z]{3,}\\s\\d{1,2},\\s\\d{4}";
 				Pattern p = Pattern.compile(REGEX);
 				Matcher m = p.matcher(price1);
 				while (m.find()) {
-					// System.out.println(m.group(0));
+					//System.out.println(m.group(0));
 					String date = dateFormatter(m.group(0));
 					String newInput[] = price1.split("\\.");
 					for (String w : newInput) {
@@ -54,7 +54,8 @@ public class finalparser {
 				}
 			}
 
-			sortbykey();
+			 sortbykey();
+			 System.out.println(hm.size());
 			/*for (Map.Entry m : hm.entrySet()) {
 				System.out.println(m.getKey() + " " + m.getValue());
 			}*/
@@ -78,19 +79,17 @@ public class finalparser {
 		// System.out.println(output);
 		return output;
 	}
-	
-	public static void sortbykey()
-    {
-        // TreeMap to store values of HashMap
-        TreeMap<String, String> sorted = new TreeMap<>();
- 
-        // Copy all data from hashMap into TreeMap
-        sorted.putAll(hm);
- 
-        // Display the TreeMap which is naturally sorted
-        for (Map.Entry<String, String> entry : sorted.entrySet()) 
-            System.out.println("Key = " + entry.getKey() + 
-                         ", Value = " + entry.getValue());        
-    }
+
+	public static void sortbykey() {
+		// TreeMap to store values of HashMap
+		TreeMap<String, String> sorted = new TreeMap<>();
+
+		// Copy all data from hashMap into TreeMap
+		sorted.putAll(hm);
+
+		// Display the TreeMap which is naturally sorted
+		for (Map.Entry<String, String> entry : sorted.entrySet())
+			System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+	}
 
 }
